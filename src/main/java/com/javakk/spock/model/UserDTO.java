@@ -1,4 +1,4 @@
-package com.javakk.spock.infrastructure;
+package com.javakk.spock.model;
 
 public class UserDTO {
     private int id;

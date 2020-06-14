@@ -1,19 +1,21 @@
-package com.javakk.spock.domain;
+package com.javakk.spock.service;
 
-import com.javakk.spock.infrastructure.UserDTO;
-import com.javakk.spock.infrastructure.UserVO;
-import com.javakk.spock.repository.UserCenterHandler;
+import com.javakk.spock.model.UserDTO;
+import com.javakk.spock.model.UserVO;
+import com.javakk.spock.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class UserProcessor {
+@Service
+public class UserService {
 
     @Autowired
-    UserCenterHandler userCenterHandler;
+    UserDao userDao;
 
     public UserVO getUserById(int uid){
-        List<UserDTO> users = userCenterHandler.getUserInfo();
+        List<UserDTO> users = userDao.getUserInfo();
         UserDTO userDTO = users.stream().filter(u -> u.getId() == uid).findFirst().orElse(new UserDTO());
         UserVO userVO = new UserVO();
         userVO.setId(userDTO.getId());
@@ -26,5 +28,9 @@ public class UserProcessor {
         }
 
         return userVO;
+    }
+
+    public boolean addUser(UserVO userVO){
+        return true;
     }
 }

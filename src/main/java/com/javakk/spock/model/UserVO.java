@@ -1,4 +1,4 @@
-package com.javakk.spock.infrastructure;
+package com.javakk.spock.model;
 
 public class UserVO {
     private int id;
@@ -54,5 +54,17 @@ public class UserVO {
 
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
+    }
+
+    @Override
+    public String toString() {
+        return "UserVO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", postCode=" + postCode +
+                ", abbreviation='" + abbreviation + '\'' +
+                '}';
     }
 }

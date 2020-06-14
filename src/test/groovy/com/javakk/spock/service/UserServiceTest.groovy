@@ -1,15 +1,15 @@
-package com.javakk.spock.domain
+package com.javakk.spock.service
 
-import com.javakk.spock.infrastructure.UserDTO
-import com.javakk.spock.repository.UserCenterHandler
+import com.javakk.spock.model.UserDTO
+import com.javakk.spock.dao.UserDao
 import spock.lang.Specification
 
-class UserProcessorTest extends Specification {
-    def processor = new UserProcessor()
-    def handler = Mock(UserCenterHandler)
+class UserServiceTest extends Specification {
+    def processor = new UserService()
+    def handler = Mock(UserDao)
 
     void setup() {
-        processor.userCenterHandler = handler
+        processor.userDao = handler
     }
 
     def "GetUserById"() {

@@ -1,13 +1,13 @@
-package com.javakk.spock.repository;
+package com.javakk.spock.dao;
 
-import com.javakk.spock.infrastructure.UserDTO;
+import com.javakk.spock.model.UserDTO;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UserCenterHandler {
+public class UserDao {
 
     public List<UserDTO> getUserInfo(){
         // 模拟用户中心服务接口调用
