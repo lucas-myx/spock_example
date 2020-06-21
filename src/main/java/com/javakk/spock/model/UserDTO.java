@@ -6,6 +6,8 @@ public class UserDTO {
     private int age;
     private String sex;
     private String province;
+    private String telephone;
+    private String idNo;
 
     public int getId() {
         return id;
@@ -47,4 +49,19 @@ public class UserDTO {
         this.province = province;
     }
 
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getIdNo() {
+        return idNo;
+    }
+
+    public void setIdNo(String idNo) {
+        this.idNo = idNo;
+    }
 }

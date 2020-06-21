@@ -23,16 +23,25 @@ public class UserController {
     @RequestMapping("/add")
     public String addUser(UserVO user) throws APIException {
         validateUser(user);
-        LogUtils.info("addUser", user.toString());
+        LogUtils.info("request param:", user.toString());
         return userService.addUser(user) ? "success" : "fail";
     }
 
-    private void validateUser(UserVO user) throws APIException {
+    public void validateUser(UserVO user) throws APIException {
         if(user == null){
             throw new APIException("10001", "user is null");
         }
-        if(user.getName() == null){
+        if(null == user.getName() || "".equals(user.getName())){
             throw new APIException("10002", "user name is null");
+        }
+        if(user.getAge() == 0){
+            throw new APIException("10003", "user age is null");
+        }
+        if(null == user.getTelephone() || "".equals(user.getTelephone())){
+            throw new APIException("10004", "user telephone is null");
+        }
+        if(null == user.getSex() || "".equals(user.getSex())){
+            throw new APIException("10005", "user sex is null");
         }
     }
 }

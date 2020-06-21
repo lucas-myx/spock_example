@@ -7,6 +7,7 @@ public class UserVO {
     private String sex;
     private int postCode; // 邮编
     private String abbreviation; // 省份简称
+    private String telephone;
 
     public int getId() {
         return id;
@@ -54,6 +55,14 @@ public class UserVO {
 
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     @Override

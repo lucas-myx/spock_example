@@ -20,4 +20,9 @@ public class UserDao {
         users.add(user);
         return users;
     }
+
+    public boolean insertUser(UserDTO userDTO){
+        // 数据库调用添加用户操作
+        return true;
+    }
 }
