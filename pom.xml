@@ -21,6 +21,8 @@
         <spock.version>1.3-groovy-2.5</spock.version>
         <groovy.version>2.5.8</groovy.version>
         <powermock.version>2.0.4</powermock.version>
+        <jmockit.version>1.37</jmockit.version>
+        <junitparams.version>1.1.0</junitparams.version>
     </properties>
 
     <dependencies>
@@ -77,6 +79,28 @@
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito2</artifactId>
             <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- junit 参数化测试，只是为了演示对比，Spock不需要引入该依赖 -->
+        <dependency>
+            <groupId>pl.pragmatists</groupId>
+            <artifactId>JUnitParams</artifactId>
+            <version>${junitparams.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- jmock，只是为了演示对比，Spock不需要引入该依赖 -->
+        <dependency>
+            <groupId>org.jmockit</groupId>
+            <artifactId>jmockit</artifactId>
+            <version>${jmockit.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+            </exclusions>
             <scope>test</scope>
         </dependency>
     </dependencies>

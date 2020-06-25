@@ -24,7 +24,7 @@ class UserServiceStaticTest extends Specification {
 
     void setup() {
         processor.userDao = dao
-        // mock静态方法
+        // mock静态类
         PowerMockito.mockStatic(LogUtils.class)
         PowerMockito.mockStatic(IDNumberUtils.class)
     }

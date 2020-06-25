@@ -1,46 +1,20 @@
 package com.javakk.spock.controller
 
 import com.javakk.spock.model.APIException
+import com.javakk.spock.model.OrderVO
 import com.javakk.spock.model.UserVO
 import com.javakk.spock.service.UserService
-import com.javakk.spock.util.LogUtils
-import org.junit.runner.RunWith
-import org.powermock.api.mockito.PowerMockito
-import org.powermock.core.classloader.annotations.PrepareForTest
-import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor
-import org.powermock.modules.junit4.PowerMockRunner
-import org.powermock.modules.junit4.PowerMockRunnerDelegate
-import org.spockframework.runtime.Sputnik
 import spock.lang.Specification
 import spock.lang.Unroll
 
 
-@RunWith(PowerMockRunner.class)
-@PowerMockRunnerDelegate(Sputnik.class)
-@PrepareForTest([LogUtils.class])
-@SuppressStaticInitializationFor(["com.javakk.spock.util.LogUtils"])
 class UserControllerTest extends Specification {
 
     def userController = new UserController()
     def service = Mock(UserService)
 
     void setup() {
-        PowerMockito.mockStatic(LogUtils.class) // mock静态方法
         userController.userService = service
-    }
-
-    def "AddUser"() {
-        given: "设置请求参数"
-        def user = new UserVO(id:1, name:"James", age: 33)
-
-        and: "mock用户服务的addUser方法，返回指定值"
-        service.addUser(_) >> true
-
-        when: "调用添加用户信息接口"
-        def response = userController.addUser(user)
-
-        then: "验证添加用户是否成功，then标签下的代码默认是布尔表达式"
-        response // 等同于 Assert.assertTrue(response)
     }
 
     @Unroll
@@ -60,6 +34,9 @@ class UserControllerTest extends Specification {
         getUser(10003) || APIException      | "10003"         | "user age is null"
         getUser(10004) || APIException      | "10004"         | "user telephone is null"
         getUser(10005) || APIException      | "10005"         | "user sex is null"
+        getUser(10006) || APIException      | "10006"         | "user order is null"
+        getUser(10007) || APIException      | "10007"         | "order number is null"
+        getUser(10008) || APIException      | "10008"         | "order amount is null"
     }
 
     def getUser(errCode) {
@@ -72,6 +49,15 @@ class UserControllerTest extends Specification {
         }
         def condition3 = {
             user.telephone = "15801833812"
+        }
+        def condition4 = {
+            user.sex = "男"
+        }
+        def condition5 = {
+            user.userOrders = [new OrderVO()]
+        }
+        def condition6 = {
+            user.userOrders = [new OrderVO(orderNum: "123456")]
         }
 
         switch (errCode) {
@@ -92,6 +78,27 @@ class UserControllerTest extends Specification {
                 condition1()
                 condition2()
                 condition3()
+                break
+            case 10006:
+                condition1()
+                condition2()
+                condition3()
+                condition4()
+                break
+            case 10007:
+                condition1()
+                condition2()
+                condition3()
+                condition4()
+                condition5()
+                break
+            case 10008:
+                condition1()
+                condition2()
+                condition3()
+                condition4()
+                condition5()
+                condition6()
                 break
         }
         return user

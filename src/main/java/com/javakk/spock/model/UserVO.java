@@ -1,5 +1,7 @@
 package com.javakk.spock.model;
 
+import java.util.List;
+
 public class UserVO {
     private int id;
     private String name;
@@ -7,7 +9,9 @@ public class UserVO {
     private String sex;
     private int postCode; // 邮编
     private String abbreviation; // 省份简称
+    private String country; // 国家
     private String telephone;
+    private List<OrderVO> userOrders; // 用户订单
 
     public int getId() {
         return id;
@@ -49,6 +53,14 @@ public class UserVO {
         this.postCode = postCode;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public String getAbbreviation() {
         return abbreviation;
     }
@@ -63,6 +75,14 @@ public class UserVO {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public List<OrderVO> getUserOrders() {
+        return userOrders;
+    }
+
+    public void setUserOrders(List<OrderVO> userOrders) {
+        this.userOrders = userOrders;
     }
 
     @Override

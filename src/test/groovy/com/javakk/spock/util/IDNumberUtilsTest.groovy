@@ -9,10 +9,10 @@ class IDNumberUtilsTest extends Specification {
 
     @Unroll
     def "身份证号:#idNo 的生日,性别,年龄是:#result"() {
-        expect: "[birthday:1987-06-28, sex:男, age:33]"
+        expect: "when + then 组合"
         IDNumberUtils.getBirAgeSex(idNo) == result
 
-        where:
+        where: "表格方式测试不同的分支逻辑"
         idNo                 || result
         "310168199809187333" || ["birthday": "1998-09-18", "sex": "男", "age": "22"]
         "320168200212084268" || ["birthday": "2002-12-08", "sex": "女", "age": "18"]

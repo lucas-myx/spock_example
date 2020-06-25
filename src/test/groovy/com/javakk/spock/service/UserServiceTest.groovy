@@ -1,16 +1,18 @@
 package com.javakk.spock.service
 
+import com.javakk.spock.model.OrderVO
 import com.javakk.spock.model.UserDTO
 import com.javakk.spock.dao.UserDao
+import com.javakk.spock.model.UserVO
 import spock.lang.Specification
 import spock.lang.Unroll
 
 class UserServiceTest extends Specification {
-    def processor = new UserService()
-    def dao = Mock(UserDao)
+    def userService = new UserService()
+    def userDao = Mock(UserDao)
 
     void setup() {
-        processor.userDao = dao
+        userService.userDao = userDao
     }
 
     def "GetUserById"() {
@@ -19,10 +21,10 @@ class UserServiceTest extends Specification {
         def user2 = new UserDTO(id:2, name:"李四", province: "江苏")
 
         and: "mock掉接口返回的用户信息"
-        dao.getUserInfo() >> [user1, user2]
+        userDao.getUserInfo() >> [user1, user2]
 
         when: "调用获取用户信息方法"
-        def response = processor.getUserById(1)
+        def response = userService.getUserById(1)
 
         then: "验证返回结果是否符合预期值"
         with(response) {
@@ -35,10 +37,10 @@ class UserServiceTest extends Specification {
     @Unroll
     def "当输入的用户id为:#uid 时返回的邮编是:#postCodeResult，处理后的电话号码是:#telephoneResult"() {
         given: "mock掉接口返回的用户信息"
-        dao.getUserInfo() >> users
+        userDao.getUserInfo() >> users
 
         when: "调用获取用户信息方法"
-        def response = processor.getUserById(uid)
+        def response = userService.getUserById(uid)
 
         then: "验证返回结果是否符合预期值"
         with(response) {
@@ -55,5 +57,23 @@ class UserServiceTest extends Specification {
 
     def getUser(String province, String telephone){
         return [new UserDTO(id: 1, name: "张三", province: province, telephone: telephone)]
+    }
+
+    def "测试void方法"() {
+        given: "设置请求参数"
+        def userVO = new UserVO(name:"James", country: "美国")
+        userVO.userOrders = [new OrderVO(orderNum: "1", amount: 10000), new OrderVO(orderNum: "2", amount: 1000)]
+
+        when: "调用设置订单金额的方法"
+        userService.setOrderAmountByExchange(userVO)
+
+        then: "验证调用获取最新汇率接口的行为是否符合预期: 一共调用2次"
+        2 * userDao.getExchange(_) >> 0.1413
+
+        and: "验证订单金额结果是否正确"
+        with(userVO){
+            userOrders[0].amount == 1413
+            userOrders[1].amount == 141.3
+        }
     }
 }
