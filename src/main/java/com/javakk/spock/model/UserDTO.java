@@ -1,5 +1,7 @@
 package com.javakk.spock.model;
 
+import java.util.List;
+
 public class UserDTO {
     private int id;
     private String name;
@@ -8,6 +10,8 @@ public class UserDTO {
     private String province;
     private String telephone;
     private String idNo;
+    private String currency; // 币种
+    private List<OrderVO> userOrders; // 用户订单
 
     public int getId() {
         return id;
@@ -63,5 +67,21 @@ public class UserDTO {
 
     public void setIdNo(String idNo) {
         this.idNo = idNo;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public List<OrderVO> getUserOrders() {
+        return userOrders;
+    }
+
+    public void setUserOrders(List<OrderVO> userOrders) {
+        this.userOrders = userOrders;
     }
 }

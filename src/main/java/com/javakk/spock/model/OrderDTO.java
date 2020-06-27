@@ -2,7 +2,7 @@ package com.javakk.spock.model;
 
 import java.math.BigDecimal;
 
-public class OrderVO {
+public class OrderDTO {
     private String orderNum;
     private BigDecimal amount;
     private String createTime;

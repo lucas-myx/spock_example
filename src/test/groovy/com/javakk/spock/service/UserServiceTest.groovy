@@ -1,5 +1,6 @@
 package com.javakk.spock.service
 
+import com.javakk.spock.dao.MoneyDAO
 import com.javakk.spock.model.OrderVO
 import com.javakk.spock.model.UserDTO
 import com.javakk.spock.dao.UserDao
@@ -10,9 +11,11 @@ import spock.lang.Unroll
 class UserServiceTest extends Specification {
     def userService = new UserService()
     def userDao = Mock(UserDao)
+    def moneyDAO = Mock(MoneyDAO)
 
     void setup() {
         userService.userDao = userDao
+        userService.moneyDAO = moneyDAO
     }
 
     def "GetUserById"() {
@@ -68,7 +71,7 @@ class UserServiceTest extends Specification {
         userService.setOrderAmountByExchange(userVO)
 
         then: "验证调用获取最新汇率接口的行为是否符合预期: 一共调用2次"
-        2 * userDao.getExchange(_) >> 0.1413
+        2 * moneyDAO.getExchangeByCountry(_) >> 0.1413
 
         and: "验证订单金额结果是否正确"
         with(userVO){

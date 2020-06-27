@@ -1,5 +1,6 @@
 package com.javakk.spock.service;
 
+import com.javakk.spock.dao.MoneyDAO;
 import com.javakk.spock.model.OrderVO;
 import com.javakk.spock.model.UserDTO;
 import com.javakk.spock.model.UserVO;
@@ -18,6 +19,9 @@ public class UserService {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    MoneyDAO moneyDAO;
 
     public UserVO getUserById(int uid){
         List<UserDTO> users = userDao.getUserInfo();
@@ -91,7 +95,7 @@ public class UserService {
         for(OrderVO orderVO : userVO.getUserOrders()){
             BigDecimal amount = orderVO.getAmount();
             // 根据汇率计算金额
-            BigDecimal exchange = userDao.getExchange(userVO.getCountry());
+            BigDecimal exchange = moneyDAO.getExchangeByCountry(userVO.getCountry());
             amount = amount.multiply(exchange);
             orderVO.setAmount(amount);
         }

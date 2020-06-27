@@ -3,7 +3,6 @@ package com.javakk.spock.dao;
 import com.javakk.spock.model.UserDTO;
 import org.springframework.stereotype.Repository;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +26,4 @@ public class UserDao {
         return true;
     }
 
-    public BigDecimal getExchange(String country){
-        // 模拟调用汇率接口获取最新的汇率
-        return BigDecimal.ONE;
-    }
 }
