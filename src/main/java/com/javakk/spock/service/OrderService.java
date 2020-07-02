@@ -7,13 +7,13 @@ import com.javakk.spock.model.OrderDTO;
 import com.javakk.spock.model.OrderVO;
 import com.javakk.spock.model.UserDTO;
 import com.javakk.spock.model.UserVO;
+import com.javakk.spock.util.HttpContextUtils;
 import com.javakk.spock.util.OrderConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -31,10 +31,15 @@ public class OrderService {
     @Autowired
     OrderConfig orderConfig;
 
+    /**
+     * 多分支业务场景
+     * @param userVO
+     * @return
+     */
     public List<OrderVO> getUserOrders(UserVO userVO){
         List<OrderVO> orderList = new ArrayList<>();
-        UserDTO userDTO = userMapper.toUserDTO(userVO);
-        List<OrderDTO> orders = orderDao.getOrderByUser(userDTO);
+        UserDTO userDTO = userMapper.toUserDTO(userVO); // VO转DTO
+        List<OrderDTO> orders = orderDao.getOrderByUser(userDTO); // 根据用户信息获取订单列表
         if (null == orders || orders.size() == 0){
             return orderList;
         }
@@ -66,5 +71,32 @@ public class OrderService {
         return orderList;
     }
 
-
+    /**
+     * 静态方法多分支场景
+     * @param userVO
+     * @return
+     */
+    public List<OrderVO> getUserOrdersBySource(UserVO userVO){
+        List<OrderVO> orderList = new ArrayList<>();
+        OrderVO order = new OrderVO();
+        if ("APP".equals(HttpContextUtils.getCurrentSource())) { // 手机来源
+            if("CNY".equals(HttpContextUtils.getCurrentCurrency())){ // 人民币
+                // TODO 针对App端的订单，并且请求币种为人民币的业务逻辑...
+                System.out.println("source -> APP, currency -> CNY");
+            } else {
+                System.out.println("source -> APP, currency -> !CNY");
+            }
+            order.setType(1);
+        } else if ("WAP".equals(HttpContextUtils.getCurrentSource())) { // H5来源
+            // TODO 针对H5端的业务逻辑...
+            System.out.println("source -> WAP");
+            order.setType(2);
+        } else if ("ONLINE".equals(HttpContextUtils.getCurrentSource())) { // PC来源
+            // TODO 针对PC端的业务逻辑...
+            System.out.println("source -> ONLINE");
+            order.setType(3);
+        }
+        orderList.add(order);
+        return orderList;
+    }
 }

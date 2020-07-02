@@ -7,6 +7,11 @@ public class OrderVO {
     private BigDecimal amount;
     private String createTime;
 
+    /**
+     * 1:APP, 2:H5, 3:PC
+     */
+    private int type;
+
     public String getOrderNum() {
         return orderNum;
     }
@@ -29,5 +34,13 @@ public class OrderVO {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

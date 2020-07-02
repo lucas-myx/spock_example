@@ -32,7 +32,7 @@ class OrderServiceTest extends Specification {
         moneyDAO.getExchangeByCurrency(_) >> exchange
         orderConfig.isShowOrderTime() >> showTime
 
-        when: "调用获取用户信息方法"
+        when: "调用获取用户订单列表"
         def orderList = orderService.getUserOrders(new UserVO())
 
         then: "验证返回结果是否符合预期值"
@@ -44,7 +44,7 @@ class OrderServiceTest extends Specification {
             }
         }
 
-        where: "表格方式验证用户信息的分支场景"
+        where: "表格方式验证订单信息的分支场景"
         user                         | orders                     | exchange | showTime || count | orderAmount | orderTime
         new UserDTO(currency: "USD") | getOrders(1, "")           | 0.1413   | false    || 1     | 141.3       | null
         new UserDTO(currency: "CNY") | getOrders(1, "2020-06-27") | 0.1413   | true     || 1     | 1000        | "2020-06-27"
