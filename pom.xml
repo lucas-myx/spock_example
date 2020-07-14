@@ -21,8 +21,9 @@
         <spock.version>1.3-groovy-2.5</spock.version>
         <groovy.version>2.5.8</groovy.version>
         <powermock.version>2.0.4</powermock.version>
-        <jmockit.version>1.37</jmockit.version>
+        <jmockit.version>1.39</jmockit.version>
         <junitparams.version>1.1.0</junitparams.version>
+        <mapstruct.version>1.3.1.Final</mapstruct.version>
     </properties>
 
     <dependencies>
@@ -102,6 +103,18 @@
                 </exclusion>
             </exclusions>
             <scope>test</scope>
+        </dependency>
+
+        <!-- 对象属性拷贝，只是为了演示，Spock不需要引入该依赖 -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-jdk8</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct.version}</version>
         </dependency>
     </dependencies>
 

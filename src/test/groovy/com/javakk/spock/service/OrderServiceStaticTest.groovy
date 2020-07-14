@@ -1,23 +1,40 @@
 package com.javakk.spock.service
 
+import com.javakk.spock.dao.OrderDao
+import com.javakk.spock.mapper.OrderMapper
+import com.javakk.spock.mapper.UserMapper
+import com.javakk.spock.model.OrderDTO
+import com.javakk.spock.model.OrderVO
 import com.javakk.spock.model.UserVO
 import com.javakk.spock.util.HttpContextUtils
+
+
 import org.junit.runner.RunWith
 import org.powermock.api.mockito.PowerMockito
 import org.powermock.core.classloader.annotations.PrepareForTest
+import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor
 import org.powermock.modules.junit4.PowerMockRunner
 import org.powermock.modules.junit4.PowerMockRunnerDelegate
+import org.powermock.reflect.Whitebox
 import org.spockframework.runtime.Sputnik
 import spock.lang.Specification
 import spock.lang.Unroll
 
+
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(Sputnik.class)
-@PrepareForTest([HttpContextUtils.class])
+@PrepareForTest([HttpContextUtils.class, OrderMapper.class])
+@SuppressStaticInitializationFor(["com.javakk.spock.mapper.OrderMapper"])
 class OrderServiceStaticTest extends Specification {
     def orderService = new OrderService()
+    def userMapper = Mock(UserMapper)
+    def orderDao = Mock(OrderDao)
+    def userService = Mock(UserService)
 
     void setup() {
+        orderService.userMapper = userMapper
+        orderService.orderDao = orderDao
+        orderService.userService = userService
         // mock静态类
         PowerMockito.mockStatic(HttpContextUtils.class)
     }
@@ -48,6 +65,32 @@ class OrderServiceStaticTest extends Specification {
         "APP"    | "USD"     | 1
         "WAP"    | ""        | 2
         "ONLINE" | ""        | 3
+    }
+
+    /**
+     * 测试spock的mock和powermock静态final变量结合的用法
+     * @return
+     */
+    @Unroll
+    def "ConvertUserOrders"() {
+        given: "mock掉OrderMapper的静态final变量INSTANCE,并结合spock设置动态返回值"
+        def orderMapper = Mock(OrderMapper.class)
+        Whitebox.setInternalState(OrderMapper.class, "INSTANCE", orderMapper)
+        orderMapper.convert(_) >> order
+
+        when: "调用用户订单转换方法"
+        def userOrders = orderService.convertUserOrders([new OrderDTO()])
+
+        then: "验证返回结果是否符合预期值"
+        with(userOrders) {
+            it[0].orderDesc == desc
+        }
+
+        where: "表格方式验证订单属性转换结果"
+        order                || desc
+        new OrderVO(type: 1) || "App端订单"
+        new OrderVO(type: 2) || "H5端订单"
+        new OrderVO(type: 3) || "PC端订单"
     }
 
 }

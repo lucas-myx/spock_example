@@ -2,6 +2,7 @@ package com.javakk.spock.service;
 
 import com.javakk.spock.dao.MoneyDAO;
 import com.javakk.spock.dao.OrderDao;
+import com.javakk.spock.mapper.OrderMapper;
 import com.javakk.spock.mapper.UserMapper;
 import com.javakk.spock.model.OrderDTO;
 import com.javakk.spock.model.OrderVO;
@@ -30,6 +31,9 @@ public class OrderService {
 
     @Autowired
     OrderConfig orderConfig;
+
+    @Autowired
+    UserService userService;
 
     /**
      * 多分支业务场景
@@ -97,6 +101,27 @@ public class OrderService {
             order.setType(3);
         }
         orderList.add(order);
+        return orderList;
+    }
+
+    /**
+     * 静态final变量场景
+     * @param orders
+     * @return
+     */
+    public List<OrderVO> convertUserOrders(List<OrderDTO> orders){
+        List<OrderVO> orderList = new ArrayList<>();
+        for (OrderDTO orderDTO : orders) {
+            OrderVO orderVO = OrderMapper.INSTANCE.convert(orderDTO); // VO DTO 属性转换
+            if (1 == orderVO.getType()) {
+                orderVO.setOrderDesc("App端订单");
+            } else if(2 == orderVO.getType()) {
+                orderVO.setOrderDesc("H5端订单");
+            } else if(3 == orderVO.getType()) {
+                orderVO.setOrderDesc("PC端订单");
+            }
+            orderList.add(orderVO);
+        }
         return orderList;
     }
 }

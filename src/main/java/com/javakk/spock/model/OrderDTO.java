@@ -6,6 +6,7 @@ public class OrderDTO {
     private String orderNum;
     private BigDecimal amount;
     private String createTime;
+    private int type;
 
     public String getOrderNum() {
         return orderNum;
@@ -29,5 +30,13 @@ public class OrderDTO {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
