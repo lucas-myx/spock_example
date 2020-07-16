@@ -80,10 +80,10 @@ public class UserService {
         if(null != userDTO.getTelephone() && !"".equals(userDTO.getTelephone())){
             userVO.setTelephone(userDTO.getTelephone().substring(0,3)+"****"+userDTO.getTelephone().substring(7));
         }
-        // 静态方法调用
+        // 静态方法调用 身份证工具类
         Map<String, String> idMap = IDNumberUtils.getBirAgeSex(userDTO.getIdNo());
         userVO.setAge(idMap.get("age")!=null ? Integer.parseInt(idMap.get("age")) : 0);
-        // 静态方法调用
+        // 静态方法调用 记录日志
         LogUtils.info("response user:", userVO.toString());
         return userVO;
     }

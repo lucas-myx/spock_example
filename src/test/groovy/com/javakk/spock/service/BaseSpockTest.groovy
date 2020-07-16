@@ -1,39 +1,41 @@
 package com.javakk.spock.service
 
+import com.javakk.spock.Spock
 import com.javakk.spock.dao.UserDao
 import com.javakk.spock.model.UserDTO
 import com.javakk.spock.util.IDNumberUtils
-import com.javakk.spock.util.LogUtils
-import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.powermock.api.mockito.PowerMockito
 import org.powermock.core.classloader.annotations.PrepareForTest
-import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor
-import org.powermock.modules.junit4.PowerMockRunner
-import org.powermock.modules.junit4.PowerMockRunnerDelegate
-import org.spockframework.runtime.Sputnik
-import spock.lang.Specification
 
 /**
- * 测试静态方法mock
+ * 测试继承Spock基类
  * @Author: www.javakk.com
  * @Description: 公众号:Java老K
  * @Date: Created in 20:53 2020/7/16
  * @Modified By:
  */
-@RunWith(PowerMockRunner.class)
-@PowerMockRunnerDelegate(Sputnik.class)
-@PrepareForTest([LogUtils.class, IDNumberUtils.class])
-@SuppressStaticInitializationFor(["com.javakk.spock.util.LogUtils"])
-class UserServiceStaticTest extends Specification {
+@PrepareForTest([IDNumberUtils.class])
+class BaseSpockTest extends Spock {
     def processor = new UserService()
     def dao = Mock(UserDao)
 
-    void setup() {
+    void setupSpec() { // 类似于JUnit的@BeforeClass
+        println "setupSpec"
+    }
+
+    void setup() { // 类似于JUnit的@Before
+        println "setup"
         processor.userDao = dao
-        // mock静态类
-        PowerMockito.mockStatic(LogUtils.class)
         PowerMockito.mockStatic(IDNumberUtils.class)
+    }
+
+    void cleanup() { // 类似于JUnit的@After
+        println "cleanup"
+    }
+
+    void cleanupSpec() { // 类似于JUnit的@AfterClass
+        println "cleanupSpec"
     }
 
     def "GetUserByIdStatic"() {

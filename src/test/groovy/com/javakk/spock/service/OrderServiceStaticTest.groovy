@@ -20,7 +20,13 @@ import org.spockframework.runtime.Sputnik
 import spock.lang.Specification
 import spock.lang.Unroll
 
-
+/**
+ * 测试静态方法mock
+ * @Author: www.javakk.com
+ * @Description: 公众号:Java老K
+ * @Date: Created in 20:53 2020/7/16
+ * @Modified By:
+ */
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(Sputnik.class)
 @PrepareForTest([HttpContextUtils.class, OrderMapper.class])
