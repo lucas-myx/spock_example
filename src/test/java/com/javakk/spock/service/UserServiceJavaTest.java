@@ -18,7 +18,7 @@ import static mockit.Deencapsulation.setField;
 
 @RunWith(JMockit.class)
 public class UserServiceJavaTest {
-
+    
     private UserService processor = new UserService();
 
     @Injectable

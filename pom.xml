@@ -91,7 +91,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- jmock，只是为了演示对比，Spock不需要引入该依赖 -->
+        <!-- jmockit，只是为了演示对比，Spock不需要引入该依赖 -->
         <dependency>
             <groupId>org.jmockit</groupId>
             <artifactId>jmockit</artifactId>

@@ -8,6 +8,11 @@ import com.javakk.spock.model.UserVO
 import spock.lang.Specification
 import spock.lang.Unroll
 
+/**
+ * 用户服务测试类
+ * @author 公众号:Java老K
+ * 个人博客:www.javakk.com
+ */
 class UserServiceTest extends Specification {
     def userService = new UserService()
     def userDao = Mock(UserDao)
@@ -70,13 +75,13 @@ class UserServiceTest extends Specification {
         when: "调用设置订单金额的方法"
         userService.setOrderAmountByExchange(userVO)
 
-        then: "验证调用获取最新汇率接口的行为是否符合预期: 一共调用2次"
-        2 * moneyDAO.getExchangeByCountry(_) >> 0.1413
+        then: "验证调用获取最新汇率接口的行为是否符合预期: 一共调用2次, 第一次输出的汇率是0.1413, 第二次是0.1421"
+        2 * moneyDAO.getExchangeByCountry(_) >> 0.1413 >> 0.1421
 
-        and: "验证订单金额结果是否正确"
+        and: "验证根据汇率计算后的金额结果是否正确"
         with(userVO){
             userOrders[0].amount == 1413
-            userOrders[1].amount == 141.3
+            userOrders[1].amount == 142.1
         }
     }
 }

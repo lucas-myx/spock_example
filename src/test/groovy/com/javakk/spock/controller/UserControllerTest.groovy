@@ -3,19 +3,17 @@ package com.javakk.spock.controller
 import com.javakk.spock.model.APIException
 import com.javakk.spock.model.OrderVO
 import com.javakk.spock.model.UserVO
-import com.javakk.spock.service.UserService
 import spock.lang.Specification
 import spock.lang.Unroll
 
-
+/**
+ * 校验用户请求参数的测试类
+ * @author 公众号:Java老K
+ * 个人博客:www.javakk.com
+ */
 class UserControllerTest extends Specification {
 
     def userController = new UserController()
-    def service = Mock(UserService)
-
-    void setup() {
-        userController.userService = service
-    }
 
     @Unroll
     def "验证用户信息的合法性: #expectedMessage"() {

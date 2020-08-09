@@ -10,6 +10,7 @@ import com.javakk.spock.util.HttpContextUtils
 
 
 import org.junit.runner.RunWith
+import org.mockito.Mockito
 import org.powermock.api.mockito.PowerMockito
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor
@@ -67,10 +68,10 @@ class OrderServiceStaticTest extends Specification {
 
         where: "表格方式验证订单信息的分支场景"
         source   | currency || type
-        "APP"    | "CNY"     | 1
-        "APP"    | "USD"     | 1
-        "WAP"    | ""        | 2
-        "ONLINE" | ""        | 3
+        "APP"    | "CNY"    || 1
+        "APP"    | "USD"    || 1
+        "WAP"    | ""       || 2
+        "ONLINE" | ""       || 3
     }
 
     /**

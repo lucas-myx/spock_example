@@ -27,6 +27,11 @@ public class UserController {
         return userService.addUser(user) ? "success" : "fail";
     }
 
+    /**
+     * 校验请求参数user是否合法
+     * @param user
+     * @throws APIException
+     */
     public void validateUser(UserVO user) throws APIException {
         if(user == null){
             throw new APIException("10001", "user is null");

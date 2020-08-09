@@ -1,6 +1,9 @@
 package com.javakk.spock.model;
 
-public class APIException extends Exception {
+/**
+ * 自定义业务异常
+ */
+public class APIException extends RuntimeException {
     private String errorCode;
     private String errorMessage;
 

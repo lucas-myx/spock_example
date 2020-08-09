@@ -3,9 +3,15 @@ package com.javakk.spock.util
 import spock.lang.Specification
 import spock.lang.Unroll
 
+/**
+ * 身份证号码工具测试类<p>
+ * 15位：6位地址码+6位出生年月日（900101代表1990年1月1日出生）+3位顺序码
+ * 18位：6位地址码+8位出生年月日（19900101代表1990年1月1日出生）+3位顺序码+1位校验码
+ * 顺序码奇数分给男性，偶数分给女性。
+ * @author 公众号:Java老K
+ * 个人博客:www.javakk.com
+ */
 class IDNumberUtilsTest extends Specification {
-    void setup() {
-    }
 
     @Unroll
     def "身份证号:#idNo 的生日,性别,年龄是:#result"() {

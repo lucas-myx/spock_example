@@ -14,6 +14,11 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 用户服务
+ * @author 公众号:Java老K
+ * 个人博客:www.javakk.com
+ */
 @Service
 public class UserService {
 
@@ -88,15 +93,19 @@ public class UserService {
         return userVO;
     }
 
+    /**
+     * 根据汇率计算金额
+     * @param userVO
+     */
     public void setOrderAmountByExchange(UserVO userVO){
         if(null == userVO.getUserOrders() || userVO.getUserOrders().size() <= 0){
             return ;
         }
         for(OrderVO orderVO : userVO.getUserOrders()){
             BigDecimal amount = orderVO.getAmount();
-            // 根据汇率计算金额
+            // 获取汇率(调用汇率接口)
             BigDecimal exchange = moneyDAO.getExchangeByCountry(userVO.getCountry());
-            amount = amount.multiply(exchange);
+            amount = amount.multiply(exchange); // 根据汇率计算金额
             orderVO.setAmount(amount);
         }
     }

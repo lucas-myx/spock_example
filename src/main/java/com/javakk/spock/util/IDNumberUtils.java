@@ -9,7 +9,10 @@ import java.util.Map;
  * 15位：6位地址码+6位出生年月日（900101代表1990年1月1日出生）+3位顺序码
  * 18位：6位地址码+8位出生年月日（19900101代表1990年1月1日出生）+3位顺序码+1位校验码
  * 顺序码奇数分给男性，偶数分给女性。
+ * @author 公众号:Java老K
+ * 个人博客:www.javakk.com
  */
+@SuppressWarnings("all")
 public class IDNumberUtils {
     /**
      * 通过身份证号码获取出生日期、性别、年龄
@@ -36,18 +39,16 @@ public class IDNumberUtils {
             }
         }
         if (flag && certificateNo.length() == 15) {
-            birthday = "19" + certificateNo.substring(6, 8) + "-"
-                    + certificateNo.substring(8, 10) + "-"
-                    + certificateNo.substring(10, 12);
-            sex = Integer.parseInt(certificateNo.substring(certificateNo.length() - 3,
-                    certificateNo.length())) % 2 == 0 ? "女" : "男";
+            birthday = "19" + certificateNo.substring(6, 8) + "-" + certificateNo.substring(8, 10) + "-" + certificateNo.substring(10, 12);
+            sex = Integer.parseInt(certificateNo.substring(certificateNo.length() - 3, certificateNo.length())) % 2 == 0 ? "女" : "男";
             age = (year - Integer.parseInt("19" + certificateNo.substring(6, 8))) + "";
         } else if (flag && certificateNo.length() == 18) {
-            birthday = certificateNo.substring(6, 10) + "-"
-                    + certificateNo.substring(10, 12) + "-"
-                    + certificateNo.substring(12, 14);
-            sex = Integer.parseInt(certificateNo.substring(certificateNo.length() - 4,
-                    certificateNo.length() - 1)) % 2 == 0 ? "女" : "男";
+            birthday = certificateNo.substring(6, 10) + "-" + certificateNo.substring(10, 12) + "-" + certificateNo.substring(12, 14);
+            sex = Integer.parseInt(certificateNo.substring(certificateNo.length() - 4, certificateNo.length() - 1)) % 2 == 0 ? "女" : "男";
+            age = (year - Integer.parseInt(certificateNo.substring(6, 10))) + "";
+        } else {
+            birthday = certificateNo.substring(6, 10);
+            sex = Integer.parseInt(certificateNo.substring(certificateNo.length() - 4, certificateNo.length() - 1)) % 2 == 0 ? "女" : "男";
             age = (year - Integer.parseInt(certificateNo.substring(6, 10))) + "";
         }
         Map<String, String> map = new HashMap<>();
