@@ -1,6 +1,6 @@
 package com.javakk.spock.service
 
-import com.javakk.spock.Spock
+import com.javakk.spock.BaseSpock
 import com.javakk.spock.dao.UserDao
 import com.javakk.spock.model.UserDTO
 import com.javakk.spock.util.IDNumberUtils
@@ -16,7 +16,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest
  * @Modified By:
  */
 @PrepareForTest([IDNumberUtils.class])
-class BaseSpockTest extends Spock {
+class BaseBaseSpockTest extends BaseSpock {
     def processor = new UserService()
     def dao = Mock(UserDao)
 

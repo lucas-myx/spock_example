@@ -24,7 +24,7 @@ import spock.lang.Specification
 @PrepareForTest([LogUtils.class])
 @PowerMockIgnore(["javax.management.*", "javax.net.ssl.*"])
 @SuppressStaticInitializationFor(["com.javakk.spock.util.LogUtils"])
-class Spock extends Specification{
+class BaseSpock extends Specification{
 
     void setup() {
         println "Spock setup"

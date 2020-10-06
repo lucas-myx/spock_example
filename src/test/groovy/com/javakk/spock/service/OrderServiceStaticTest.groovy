@@ -48,7 +48,6 @@ class OrderServiceStaticTest extends Specification {
 
     /**
      * 测试spock的mock和power mock静态方法组合用法的场景
-     * @return
      */
     @Unroll
     def "当来源是#source时，订单类型为:#type"() {
@@ -76,7 +75,6 @@ class OrderServiceStaticTest extends Specification {
 
     /**
      * 测试spock的mock和powermock静态final变量结合的用法
-     * @return
      */
     @Unroll
     def "ConvertUserOrders"() {
