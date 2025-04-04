@@ -5,7 +5,7 @@
  - Java 21
 
 ### Spock2.x 新增特性
-1. 支持静态方法和final类的mock(内置支持了mockito扩展)，不用再单独引入powermock或jmockit，目前已支持的列表如下：  
+1. 支持静态方法和final类的mock(内置支持了mockito扩展)，不用再单独引入powermock或jmockit(单测会更简洁)，目前已支持的列表如下：  
    ![image](src/main/resources/pic/built-in-mock.png)
 2. 基于Junit 5
 
