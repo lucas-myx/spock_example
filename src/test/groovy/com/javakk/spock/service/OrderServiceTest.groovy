@@ -8,7 +8,6 @@ import com.javakk.spock.model.UserDTO
 import com.javakk.spock.model.UserVO
 import com.javakk.spock.util.OrderConfig
 import spock.lang.Specification
-import spock.lang.Unroll
 
 class OrderServiceTest extends Specification {
     def orderService = new OrderService()
@@ -24,7 +23,6 @@ class OrderServiceTest extends Specification {
         orderService.orderConfig = orderConfig
     }
 
-    @Unroll
     def "GetUserOrders"() {
         given: "mock用户转换的方法,订单接口，外汇汇率接口以及配置中心的返回"
         userMapper.toUserDTO(_) >> user

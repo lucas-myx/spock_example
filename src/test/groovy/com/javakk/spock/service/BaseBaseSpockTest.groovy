@@ -4,9 +4,6 @@ import com.javakk.spock.BaseSpock
 import com.javakk.spock.dao.UserDao
 import com.javakk.spock.model.UserDTO
 import com.javakk.spock.util.IDNumberUtils
-import org.mockito.Mockito
-import org.powermock.api.mockito.PowerMockito
-import org.powermock.core.classloader.annotations.PrepareForTest
 
 /**
  * 测试继承Spock基类
@@ -15,7 +12,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest
  * @Date: Created in 20:53 2020/7/16
  * @Modified By:
  */
-@PrepareForTest([IDNumberUtils.class])
 class BaseBaseSpockTest extends BaseSpock {
     def processor = new UserService()
     def dao = Mock(UserDao)
@@ -27,7 +23,7 @@ class BaseBaseSpockTest extends BaseSpock {
     void setup() { // 类似于JUnit的@Before
         println "setup"
         processor.userDao = dao
-        PowerMockito.mockStatic(IDNumberUtils.class)
+        SpyStatic(IDNumberUtils.class)
     }
 
     void cleanup() { // 类似于JUnit的@After
@@ -48,7 +44,7 @@ class BaseBaseSpockTest extends BaseSpock {
         dao.getUserInfo() >> [user1, user2]
 
         and: "mock静态方法返回值"
-        PowerMockito.when(IDNumberUtils.getBirAgeSex(Mockito.any())).thenReturn(idMap)
+        IDNumberUtils.getBirAgeSex(_) >> idMap
 
         when: "调用获取用户信息方法"
         def response = processor.getUserByIdStatic(1)

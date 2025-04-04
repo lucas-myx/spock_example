@@ -42,7 +42,6 @@ class UserServiceTest extends Specification {
         }
     }
 
-    @Unroll
     def "当输入的用户id为:#uid 时返回的邮编是:#postCodeResult，处理后的电话号码是:#telephoneResult"() {
         given: "mock掉接口返回的用户信息"
         userDao.getUserInfo() >> users

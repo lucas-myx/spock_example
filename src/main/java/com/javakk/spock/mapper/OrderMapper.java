@@ -15,6 +15,10 @@ public interface OrderMapper {
     // 即使不用static final修饰，接口里的变量默认也是静态、final的
     static final OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
 
+    static OrderMapper getInstance() {
+        return INSTANCE;
+    }
+
     @Mappings({})
     OrderVO convert(OrderDTO requestDTO);
 }

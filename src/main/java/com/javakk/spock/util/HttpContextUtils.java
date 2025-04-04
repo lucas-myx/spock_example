@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class HttpContextUtils {
+public final class HttpContextUtils {
     private static final int CONTEXT_DEFAULT_SIZE = 64;
     private static final ThreadLocal<Map<String, Object>> CONTEXT = new ThreadLocal<Map<String, Object>>() {
         protected Map<String, Object> initialValue() {

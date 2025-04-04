@@ -2,6 +2,7 @@ package com.javakk.spock.service;
 
 import com.javakk.spock.dao.MoneyDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
  * @Date: Created in 14:53 2020/10/05
  * @Modified By:
  */
+@Service
 public class SubService extends AbstractService {
 
     @Autowired

@@ -85,18 +85,18 @@ public class OrderService {
         OrderVO order = new OrderVO();
         if ("APP".equals(HttpContextUtils.getCurrentSource())) { // 手机来源
             if("CNY".equals(HttpContextUtils.getCurrentCurrency())){ // 人民币
-                // TODO 针对App端的订单，并且请求币种为人民币的业务逻辑...
+                // 针对App端的订单，并且请求币种为人民币的业务逻辑...
                 System.out.println("source -> APP, currency -> CNY");
             } else {
                 System.out.println("source -> APP, currency -> !CNY");
             }
             order.setType(1);
         } else if ("WAP".equals(HttpContextUtils.getCurrentSource())) { // H5来源
-            // TODO 针对H5端的业务逻辑...
+            // 针对H5端的业务逻辑...
             System.out.println("source -> WAP");
             order.setType(2);
         } else if ("ONLINE".equals(HttpContextUtils.getCurrentSource())) { // PC来源
-            // TODO 针对PC端的业务逻辑...
+            // 针对PC端的业务逻辑...
             System.out.println("source -> ONLINE");
             order.setType(3);
         }
@@ -112,7 +112,8 @@ public class OrderService {
     public List<OrderVO> convertUserOrders(List<OrderDTO> orders){
         List<OrderVO> orderList = new ArrayList<>();
         for (OrderDTO orderDTO : orders) {
-            OrderVO orderVO = OrderMapper.INSTANCE.convert(orderDTO); // VO DTO 属性转换
+            OrderMapper orderMapper = OrderMapper.INSTANCE;
+            OrderVO orderVO = orderMapper.convert(orderDTO); // VO DTO 属性转换
             if (1 == orderVO.getType()) {
                 orderVO.setOrderDesc("App端订单");
             } else if(2 == orderVO.getType()) {
